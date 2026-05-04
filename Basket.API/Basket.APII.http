@@ -1,0 +1,6 @@
+@Basket.APII_HostAddress = http://localhost:5135
+
+GET {{Basket.APII_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

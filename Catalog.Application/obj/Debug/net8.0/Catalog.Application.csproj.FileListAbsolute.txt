@@ -1,0 +1,12 @@
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\bin\Debug\net8.0\Catalog.Application.deps.json
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\bin\Debug\net8.0\Catalog.Application.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\bin\Debug\net8.0\Catalog.Application.pdb
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.AssemblyInfoInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.AssemblyInfo.cs
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.csproj.CoreCompileInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.sourcelink.json
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\refint\Catalog.Application.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\Catalog.Application.pdb
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Application\obj\Debug\net8.0\ref\Catalog.Application.dll

@@ -1,0 +1,13 @@
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\bin\Debug\net8.0\Catalog.Domain.deps.json
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\bin\Debug\net8.0\Catalog.Domain.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\bin\Debug\net8.0\Catalog.Domain.pdb
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.csproj.AssemblyReference.cache
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.AssemblyInfoInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.AssemblyInfo.cs
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.csproj.CoreCompileInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.sourcelink.json
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\refint\Catalog.Domain.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\Catalog.Domain.pdb
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.Domain\obj\Debug\net8.0\ref\Catalog.Domain.dll
