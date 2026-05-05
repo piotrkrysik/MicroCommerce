@@ -1,0 +1,59 @@
+{
+  "Routes": [
+    // 1. CATALOG: Lista produktów (np. GET /Catalog)
+    {
+      "DownstreamPathTemplate": "/api/v1/Catalog",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/Catalog",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    // 2. CATALOG: Konkretny produkt (np. GET /Catalog/123)
+    {
+      "DownstreamPathTemplate": "/api/v1/Catalog/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/Catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    // 3. BASKET: Operacje ogólne (np. POST /Basket - dodawanie do koszyka)
+    {
+      "DownstreamPathTemplate": "/api/v1/Basket",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basket.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/Basket",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    // 4. BASKET: Operacje na użytkowniku (np. GET /Basket/piotr)
+    {
+      "DownstreamPathTemplate": "/api/v1/Basket/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basket.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/Basket/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8010"
+  }
+}

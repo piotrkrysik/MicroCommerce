@@ -1,3 +1,4 @@
+using Catalog.API.Grpc;
 using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Persistance;
 using Catalog.Infrastructure.Persistence;
@@ -12,6 +13,16 @@ namespace Catalog.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                // Port 8080 dla zwyk³ego API (REST) - obs³uguje HTTP/1.1 (Swagger, przegl¹darka)
+                options.ListenAnyIP(8080, listenOptions =>
+                    listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1);
+
+                // Port 8081 specjalnie dla gRPC - obs³uguje HTTP/2 (komunikacja miêdzy serwisami)
+                options.ListenAnyIP(8081, listenOptions =>
+                    listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2);
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -22,7 +33,12 @@ namespace Catalog.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddGrpc();
+
             var app = builder.Build();
+
+            app.MapGrpcService<CatalogGrpcService>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

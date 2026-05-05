@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Basket.API\Basket.API.csproj", "{A52C8E13-3CA4-4869-A52D-5ACEF299E50B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{210FD306-4BF5-48F6-8335-8D8F88EC3533}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{A52C8E13-3CA4-4869-A52D-5ACEF299E50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A52C8E13-3CA4-4869-A52D-5ACEF299E50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A52C8E13-3CA4-4869-A52D-5ACEF299E50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{210FD306-4BF5-48F6-8335-8D8F88EC3533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{210FD306-4BF5-48F6-8335-8D8F88EC3533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{210FD306-4BF5-48F6-8335-8D8F88EC3533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{210FD306-4BF5-48F6-8335-8D8F88EC3533}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

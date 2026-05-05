@@ -1,4 +1,8 @@
 using Basket.API.Repositories;
+using Catalog.API.Protos;
+using Basket.API.Grpc;
+
+AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,14 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 // Dependency Injection
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+builder.Services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(o =>
+{
+    o.Address = new Uri("http://catalog.api:8081");
+});
+
+// Rejestracja klasy pomocniczej, któr¹ zaraz stworzymy
+builder.Services.AddScoped<ICatalogGrpcService, BasketCatalogGrpcService>();
 
 var app = builder.Build();
 

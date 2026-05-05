@@ -151,3 +151,10 @@ C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\obj\Debug\net8.0\refint\Catalog
 C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\obj\Debug\net8.0\Catalog.API.pdb
 C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\obj\Debug\net8.0\Catalog.API.genruntimeconfig.cache
 C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\obj\Debug\net8.0\ref\Catalog.API.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.AspNetCore.Server.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.AspNetCore.Server.ClientFactory.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.Core.Api.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.Net.Client.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.Net.ClientFactory.dll
+C:\Users\piotr\Desktop\MicroCommerce\Catalog.API\bin\Debug\net8.0\Grpc.Net.Common.dll

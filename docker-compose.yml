@@ -36,3 +36,16 @@ services:
       - catalogdb
     ports:
       - "8000:8080"
+      - "8081:8081"
+
+  apigateway:
+    container_name: microcommerce-apigateway
+    image: microcommerce-apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "8010:8080"
+    depends_on:
+      - catalog.api
+      - basket.api
