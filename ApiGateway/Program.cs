@@ -9,11 +9,23 @@ namespace ApiGateway
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .WithOrigins("http://localhost:3000"); // adres Twojego przysz³ego frontu
+                });
+            });
+
             builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
             builder.Services.AddOcelot(builder.Configuration);
 
             var app = builder.Build();
+
+            app.UseCors("CorsPolicy");
 
             app.MapGet("/", () => "Hello World! Gateway jest uruchomiony.");
 

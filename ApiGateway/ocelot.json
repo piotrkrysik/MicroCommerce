@@ -51,6 +51,19 @@
       ],
       "UpstreamPathTemplate": "/Basket/{everything}",
       "UpstreamHttpMethod": [ "Get", "Delete" ]
+    },
+    // 5. ORDERING: Pobieranie zamówień (np. GET /Order/pedro)
+    {
+      "DownstreamPathTemplate": "/api/v1/Order/{userName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ordering.api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/{userName}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ],
   "GlobalConfiguration": {
