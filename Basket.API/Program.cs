@@ -1,6 +1,7 @@
+using Basket.API.Grpc;
 using Basket.API.Repositories;
 using Catalog.API.Protos;
-using Basket.API.Grpc;
+using MassTransit;
 
 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
@@ -27,6 +28,13 @@ builder.Services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(o 
 
 // Rejestracja klasy pomocniczej, któr¹ zaraz stworzymy
 builder.Services.AddScoped<ICatalogGrpcService, BasketCatalogGrpcService>();
+
+builder.Services.AddMassTransit(config => {
+    config.UsingRabbitMq((ctx, cfg) => {
+        // "rabbitmq" to nazwa serwisu z pliku docker-compose
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
 
 var app = builder.Build();
 

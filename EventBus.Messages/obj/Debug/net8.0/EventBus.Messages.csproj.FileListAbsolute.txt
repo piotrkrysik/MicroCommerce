@@ -1,0 +1,12 @@
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\bin\Debug\net8.0\EventBus.Messages.deps.json
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\bin\Debug\net8.0\EventBus.Messages.dll
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\bin\Debug\net8.0\EventBus.Messages.pdb
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.AssemblyInfoInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.AssemblyInfo.cs
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.csproj.CoreCompileInputs.cache
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.sourcelink.json
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.dll
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\refint\EventBus.Messages.dll
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\EventBus.Messages.pdb
+C:\Users\piotr\Desktop\MicroCommerce\EventBus.Messages\obj\Debug\net8.0\ref\EventBus.Messages.dll

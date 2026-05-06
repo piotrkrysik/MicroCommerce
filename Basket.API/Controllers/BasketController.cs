@@ -1,6 +1,9 @@
 ﻿using Basket.API.Entities;
 using Basket.API.Grpc;
 using Basket.API.Repositories;
+using EventBus.Messages.Events;
+using MassTransit;
+using MassTransit.Transports;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -13,11 +16,51 @@ namespace Basket.API.Controllers
     {
         private readonly IBasketRepository _repository;
         private readonly ICatalogGrpcService _catalogGrpcService;
-
-        public BasketController(IBasketRepository repository, ICatalogGrpcService catalogGrpcService)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public BasketController(IBasketRepository repository, ICatalogGrpcService catalogGrpcService, IPublishEndpoint publishEndpoint)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _catalogGrpcService = catalogGrpcService ?? throw new ArgumentNullException(nameof(catalogGrpcService));
+            _repository = repository;
+            _catalogGrpcService = catalogGrpcService;
+            _publishEndpoint = publishEndpoint;
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
+        {
+            // 1. Pobierz istniejący koszyk z Redisa
+            var basket = await _repository.GetBasket(basketCheckout.UserName);
+            if (basket == null)
+            {
+                return BadRequest();
+            }
+
+            // 2. Stwórz BasketCheckoutEvent (używamy AutoMappera lub ręcznie przepisujemy pola)
+            var eventMessage = new BasketCheckoutEvent
+            {
+                UserName = basket.UserName,
+                TotalPrice = basket.TotalPrice,
+                FirstName = basketCheckout.FirstName,
+                LastName = basketCheckout.LastName,
+                EmailAddress = basketCheckout.EmailAddress,
+                AddressLine = basketCheckout.AddressLine,
+                Country = basketCheckout.Country,
+                CardName = basketCheckout.CardName,
+                CardNumber = basketCheckout.CardNumber,
+                Expiration = basketCheckout.Expiration,
+                Cvv = basketCheckout.CVV, // Tu użyj takiej nazwy, jaką masz w opcji B
+                PaymentMethod = basketCheckout.PaymentMethod
+            };
+
+            // 3. Wyślij event do RabbitMQ (MassTransit zajmie się resztą)
+            await _publishEndpoint.Publish(eventMessage);
+
+            // 4. Usuń koszyk z Redisa (użytkownik właśnie złożył zamówienie)
+            await _repository.DeleteBasket(basket.UserName);
+
+            return Accepted();
         }
 
         [HttpGet("{userName}", Name = "GetBasket")]
