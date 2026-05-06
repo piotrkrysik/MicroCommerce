@@ -78,3 +78,6 @@ services:
       - apigateway
     networks:
       - aspnet-microservices
+networks:
+  aspnet-microservices:
+    driver: bridge
