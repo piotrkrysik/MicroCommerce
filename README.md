@@ -1,50 +1,47 @@
 # MicroCommerce – Microservices Lab
 
-Projekt edukacyjny demonstrujący architekturę mikroserwisową opartą o **.NET 8**, konteneryzację (**Docker**) oraz zasadę **Polyglot Persistence**. System wykorzystuje komunikację asynchroniczną do obsługi procesu składania zamówień.
+Projekt edukacyjny demonstrujący architekturę mikroserwisową opartą o **.NET 8**, **React**, konteneryzację (**Docker**) oraz zasadę **Polyglot Persistence**. System wykorzystuje komunikację asynchroniczną i centralny Gateway do obsługi procesów e-commerce.
 
 ## 🏗 Architektura systemu
 
-System składa się z niezależnych usług komunikujących się asynchronicznie za pomocą brokera wiadomości:
+System składa się z niezależnych usług, które współpracują w ramach jednej sieci Dockerowej:
 
-*   **Catalog.API**: Zarządza asortymentem produktów. (SQL Server)
-*   **Basket.API**: Obsługuje koszyki zakupowe i inicjuje proces zamówienia (Checkout). (Redis)
-*   **Ordering.API**: Przetwarza zamówienia odebrane z kolejki. (SQL Server + MediatR/Uproszczony Controller)
-*   **EventBus (RabbitMQ)**: Broker wiadomości zapewniający asynchroniczną komunikację między Basket a Ordering.
+*   **Client (SPA)**: Nowoczesny frontend w **React**. Komunikuje się wyłącznie z bramą API.
+*   **API Gateway (Ocelot)**: Centralny punkt wejścia (port 8010). Odpowiada za routing ruchu do mikroserwisów.
+*   **Catalog.API**: Zarządza asortymentem produktów (**SQL Server**).
+*   **Basket.API**: Obsługuje koszyki zakupowe i inicjuje proces zamówienia (**Redis**).
+*   **Ordering.API**: Przetwarza zamówienia odebrane asynchronicznie (**SQL Server**).
+*   **EventBus (RabbitMQ)**: Broker wiadomości zapewniający komunikację między usługami.
 
 ## 🚀 Jak uruchomić?
 
-Projekt jest w pełni scentralizowany dzięki **Docker Compose**.
+Całe środowisko (frontend, backend, bazy danych) wstaje „jednym kliknięciem”.
 
 1.  Upewnij się, że masz zainstalowany **Docker Desktop**.
-2.  Sklonuj repozytorium.
-3.  W folderze głównym otwórz terminal i wpisz:
-    ```bash
-    docker-compose up -d --build
-    ```
-4.  Wszystkie usługi, bazy danych oraz broker RabbitMQ zostaną uruchomione automatycznie.
+2.  W folderze głównym otwórz terminal i wpisz komendę:
+    `docker-compose up -d --build`
+3.  Docker automatycznie zbuduje obrazy (w tym obraz Reacta serwowany przez Nginx) i uruchomi kontenery.
 
 ## 🔗 Punkty dostępowe (Endpoints)
 
-| Usługa | URL (Swagger / Panel) | Baza danych | Port |
-| :--- | :--- | :--- | :--- |
-| **Catalog API** | [http://localhost:8000/swagger](http://localhost:8000/swagger) | SQL Server | 8000 |
-| **Basket API** | [http://localhost:8001/swagger](http://localhost:8001/swagger) | Redis | 8001 |
-| **Ordering API** | [http://localhost:8002/swagger](http://localhost:8002/swagger) | SQL Server | 8002 |
-| **RabbitMQ Dashboard** | [http://localhost:15672](http://localhost:15672) (guest/guest) | - | 15672 |
+| Usługa | URL | Opis |
+| :--- | :--- | :--- |
+| **Frontend App** | [http://localhost:3000](http://localhost:3000) | Aplikacja React (SPA) |
+| **API Gateway** | [http://localhost:8010](http://localhost:8010) | Główny punkt dostępu (Ocelot) |
+| **RabbitMQ UI** | [http://localhost:15672](http://localhost:15672) | Panel brokera (guest/guest) |
+| **Catalog API** | [http://localhost:8000/swagger](http://localhost:8000/swagger) | Dokumentacja Swagger (opcjonalnie) |
 
 ## 🛠 Kluczowe funkcjonalności
 
-*   **Event-Driven Architecture**: Wykorzystanie **MassTransit** i **RabbitMQ** do przesyłania zdarzeń (`BasketCheckoutEvent`) między mikroserwisami.
-*   **Polyglot Persistence**: 
-    *   **SQL Server** dla danych strukturalnych (Katalog, Zamówienia).
-    *   **Redis** dla danych ulotnych/szybkich (Koszyk).
-*   **Data Integrity**: Rozwiązanie problemów z mapowaniem danych płatności (CVV) oraz obsługa błędów zapisu w bazie danych.
-*   **Containerization**: Pełna orkiestracja za pomocą Docker Compose.
-*   **Observability**: Logowanie zdarzeń w konsoli kontenerów ułatwiające debugowanie przepływu wiadomości.
+*   **Full-Stack Orchestration**: Zarządzanie cyklem życia frontendu i backendu za pomocą Docker Compose.
+*   **Event-Driven Architecture**: Wykorzystanie **MassTransit** i **RabbitMQ** do obsługi zdarzeń.
+*   **Polyglot Persistence**: Dobór baz danych pod konkretne wymagania (Redis dla koszyka, SQL Server dla zamówień).
+*   **API Gateway Pattern**: Ukrycie złożoności mikroserwisów za jedną bramą, co rozwiązuje problemy z CORS.
 
-## 📝 Flow składania zamówienia
-1. Dodaj produkty do koszyka w **Basket API**.
-2. Wykonaj endpoint `/Checkout` w Basket API, podając dane użytkownika i karty.
-3. Zdarzenie trafia do **RabbitMQ**.
-4. **Ordering API** konsumuje wiadomość i trwale zapisuje zamówienie w bazie SQL Server.
-5. Pobierz zamówienie przez endpoint `GET /api/v1/Order/{userName}` w Ordering API.
+## 📝 Flow składania zamówienia (E2E)
+
+1.  **Katalog**: Użytkownik przegląda produkty pobierane z Catalog.API.
+2.  **Koszyk**: Dodaje produkty do koszyka (dane zapisywane w Redis).
+3.  **Checkout**: W widoku Checkout wysyła formularz – Basket.API publikuje wiadomość do RabbitMQ.
+4.  **Zamówienie**: Ordering.API konsumuje wiadomość i zapisuje zamówienie w SQL Server.
+5.  **Historia**: Użytkownik widzi status w zakładce "Moje Zamówienia" (dane pobierane przez Gateway).
