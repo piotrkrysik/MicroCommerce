@@ -31,6 +31,7 @@ namespace Catalog.API.Controllers
             {
                 Id = p.Id,
                 Name = p.Name,
+                ImageFile = p.ImageFile,
                 Summary = p.Summary,
                 Price = p.Price,
                 CategoryId = p.CategoryId
@@ -56,6 +57,7 @@ namespace Catalog.API.Controllers
             {
                 Id = p.Id,
                 Name = p.Name,
+                ImageFile = p.ImageFile,
                 Summary = p.Summary,
                 Price = p.Price,
                 CategoryId = p.CategoryId
@@ -85,8 +87,10 @@ namespace Catalog.API.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
-                Price = product.Price
-                // uzupełnij resztę pól...
+                ImageFile = product.ImageFile,
+                Summary = product.Summary,
+                Price = product.Price,
+                CategoryId = product.CategoryId
             };
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, resultDto);
@@ -100,7 +104,10 @@ namespace Catalog.API.Controllers
 
             existingProduct.Name = productDto.Name;
             existingProduct.Price = productDto.Price;
-            // ... reszta pól
+            existingProduct.ImageFile = productDto.ImageFile;
+            existingProduct.Summary = productDto.Summary;
+            existingProduct.Price = productDto.Price;
+            existingProduct.CategoryId = productDto.CategoryId;
 
             return Ok(await _repository.UpdateProduct(existingProduct));
         }

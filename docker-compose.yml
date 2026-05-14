@@ -8,10 +8,16 @@ services:
       - MSSQL_SA_PASSWORD=Your_Password123!
     ports:
       - "1433:1433"
+    networks:
+      - aspnet-microservices
+
   basketdb:
     image: redis:latest
     ports:
       - "6379:6379"
+    networks:
+      - aspnet-microservices
+
   basket.api:
     build:
       context: .
@@ -23,9 +29,10 @@ services:
       - basketdb
     ports:
       - "8001:8080"
+    networks:
+      - aspnet-microservices
 
   catalog.api:
-    image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Catalog.API/Dockerfile
@@ -36,11 +43,11 @@ services:
       - catalogdb
     ports:
       - "8000:8080"
-      - "8081:8081"
+    networks:
+      - aspnet-microservices
 
   apigateway:
     container_name: microcommerce-apigateway
-    image: microcommerce-apigateway
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
@@ -49,35 +56,44 @@ services:
     depends_on:
       - catalog.api
       - basket.api
+    networks:
+      - aspnet-microservices
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: microcommerce-rabbitmq
     ports:
-      - "5672:5672"   # Port do komunikacji między serwisami
-      - "15672:15672" # Port do panelu zarządzania (UI)
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - aspnet-microservices
+
   ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
     build:
       context: .
       dockerfile: Ordering.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      # Adres pod którym MassTransit znajdzie RabbitMQ wewnątrz sieci Dockera
       - "EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - rabbitmq
     ports:
       - "8002:8080"
+    networks:
+      - aspnet-microservices
+
   client:
+    container_name: microcommerce-client
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "3000:80" # Frontend dostępny pod http://localhost:3000
     depends_on:
       - apigateway
     networks:
       - aspnet-microservices
+
 networks:
   aspnet-microservices:
     driver: bridge

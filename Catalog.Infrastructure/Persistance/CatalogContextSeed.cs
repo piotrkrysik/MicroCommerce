@@ -31,6 +31,7 @@ namespace Catalog.Infrastructure.Persistence
                 {
                     Id = Guid.NewGuid(),
                     Name = "Smartfon X",
+                    ImageFile = "https://bnbn.pl/wp-content/uploads/2025/10/G3BGOsjacAAc3Mm.jpeg",
                     Summary = "Świetny telefon",
                     Price = 2999.00m,
                     CategoryId = category.Id
@@ -39,6 +40,7 @@ namespace Catalog.Infrastructure.Persistence
                 {
                     Id = Guid.NewGuid(),
                     Name = "Laptop Y",
+                    ImageFile = "https://electro.garden/data/gfx/pictures/large/2/3/332_1.jpg?1709909140",
                     Summary = "Szybki komputer",
                     Price = 4500.00m,
                     CategoryId = category.Id

@@ -15,13 +15,22 @@ namespace ApiGateway
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyMethod()
-                          .WithOrigins("http://localhost:3000"); // adres Twojego przysz³ego frontu
+                          .WithOrigins("http://localhost:3000"); // adres Twojego przyszï¿½ego frontu
                 });
             });
 
             builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
             builder.Services.AddOcelot(builder.Configuration);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                policy => policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
 
             var app = builder.Build();
 
